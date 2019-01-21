@@ -1,0 +1,16 @@
+# BEGIN CATALOG HEADER 
+# nfields '+str(nn)+' 
+#     id 1 0 c INDEF %15s 
+#     ra 2 0 d degrees %10.5f 
+#     dec 3 0 d degrees %10.5f 
+#     magV  4 0 r INDEF %6.2f 
+#     magBV 5 0 r INDEF %6.2f 
+#     magUB 6 0 r INDEF %6.2f 
+#     magVR 7 0 r INDEF %6.2f 
+#     magRI 8 0 r INDEF %6.2f 
+# END CATALOG HEADER 
+#
+ 003	162.500864   -0.0035185     	13.47	-0.290	-1.121	-0.132	-0.162  
+ 003A	162.510392   -0.0189052     	13.51	 0.688	 0.168	 0.422	 0.418  
+ 003B	162.515143   -0.0392515     	14.75	 0.679	 0.172	 0.391	 0.371  
+ 003C	162.552415   -0.0199418     	12.45	 0.607	-0.019	 0.378	 0.358  

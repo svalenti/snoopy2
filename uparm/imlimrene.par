@@ -1,0 +1,4 @@
+oldnames,s,a,"PSN1.fits",,,"images to be renamed"
+newnames,s,a,"PSN1118p13_fts_20130331_merge_2.0_56382_1_ee.fits",,,"new image names"
+verbose,b,h,no,,,"report each rename operation"
+mode,s,h,"ql",,,

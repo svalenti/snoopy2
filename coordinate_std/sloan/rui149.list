@@ -1,0 +1,15 @@
+# BEGIN CATALOG HEADER
+# nfields 11
+#     id 1 0 c INDEF %15s
+#     ra 2 0 d degrees %10.5f
+#     dec 3 0 d degrees %10.5f
+#     magr  4 0 r INDEF %6.2f
+#     maggr 5 0 r INDEF %6.2f
+#     magug 6 0 r INDEF %6.2f
+#     magri 7 0 r INDEF %6.2f
+#     magiz 8 0 r INDEF %6.2f
+# END CATALOG HEADER
+#
+149B  111.07301  -0.55181  12.474  0.460  1.385  0.141  0.033
+149D  111.06380  -0.54685  11.601  -0.213  0.652  -0.203  -0.136
+149F  111.05844  -0.52768  13.119  0.867  2.469  0.317  0.166

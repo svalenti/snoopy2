@@ -1,0 +1,15 @@
+# BEGIN CATALOG HEADER 
+# nfields '+str(nn)+' 
+#     id 1 0 c INDEF %15s 
+#     ra 2 0 d degrees %10.5f 
+#     dec 3 0 d degrees %10.5f 
+#     magV  4 0 J INDEF %6.2f 
+#     magBV 5 0 JH INDEF %6.2f 
+#     magUB 6 0 HK INDEF %6.2f 
+# END CATALOG HEADER 
+#
+  1	132.832146   11.8695636     	12.670	0.336	0.071
+  2	132.840759   11.8771239     	10.095	0.301	0.048
+  3	132.856548   11.8775832     	J	JH	HK
+  4	132.828500   11.8550000     	J	JH	HK
+  5	132.834167   11.8800000	   	12.745  0.257   0.051

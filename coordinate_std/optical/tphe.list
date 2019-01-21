@@ -1,0 +1,33 @@
+# BEGIN CATALOG HEADER
+# catdb /Users/stefanovalenti/standard/catalogue.dat
+# catname lan92@noao
+# nquery 4
+#     ra 0:30:15.90 hours
+#     dec -46:30:01.3 degrees
+#     width 0.167 degrees
+#     qsystem J2000.0 INDEF
+# type stext
+# nheader 1
+#     csystem J2000.0
+# nfields 17
+#     id 1 0 c INDEF %11s
+#     ra 2 0 d degrees %10.5f
+#     dec 3 0 d degrees %10.5f
+#     v 4 0 r INDEF %6.3f
+#     bv 5 0 r INDEF %6.3f
+#     ub 6 0 r INDEF %6.3f
+#     vr 7 0 r INDEF %6.3f
+#     ri 8 0 r INDEF %6.3f
+# END CATALOG HEADER
+#
+#     Equinox: J2000.000 Epoch: J2000.00000000 MJD: 51544.50000
+# Output System: j2000  Coordinates: equatorial FK5
+#     Equinox: J2000.000 Epoch: J2000.00000000 MJD: 51544.50000
+#
+# Field Center:  0:30:15.9      -47.  Width: 0.1670 0.1670
+# Field Limits: 0:29:46.7 0:30:45.1       -47.      -46.
+#
+TPHE_A      7.5405     -46.5257    14.651    0.793    0.380    0.435    0.405
+TPHE_B    7.566666     -46.4652    12.334    0.405    0.156    0.262    0.271
+TPHE_C    7.570833     -46.5387    14.376    -0.298    -1.217    -0.148    -0.211
+TPHE_D       7.575     -46.5217    13.118    1.551    1.871    0.849    0.810

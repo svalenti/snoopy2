@@ -1,0 +1,31 @@
+input,s,a,"SN2013G.g.ut130312.2008_1.fits",,,"List of input mosaic exposures"
+coords,s,a,"/nethome/bdilday/data/v10.0lcogt/FTN_FS/PTF/workspace/ut130312/1/SN2013G.g.ut130312.2008_1.WEBUSNOA2_R.wcs",,,"Coordinate file (ra/dec)"
+outcoords,f,h,"/nethome/bdilday/data/v10.0lcogt/FTN_FS/PTF/workspace/ut130312/1/SN2013G.g.ut130312.2008_1.WEBUSNOA2_R.wcs.used",,,"List of updated coordinate files"
+usebpm,b,h,yes,,,"Use bad pixel masks?"
+verbose,b,h,yes,,,"Verbose?
+
+# Coarse Search"
+nsearch,i,h,500,,,"Maximum number of positions to use in search"
+search,r,h,0.,0.,,"Translation search radius (arcsec)"
+rsearch,r,h,0.03,0.,,"Rotation search radius (deg)
+
+# Fine Centroiding"
+cbox,i,h,11,5,,"Centering box (pixels)"
+maxshift,r,h,1.,,,"Maximum centering shift to accept (arcsec)"
+csig,r,h,0.1,,,"Maximum centering uncertainty to accept (arcsec)"
+cfrac,r,h,0.5,0.,1.,"Minimum fraction of accepted centers"
+listcoords,b,h,no,,,"List centered coordinates in verbose mode?
+
+# WCS Fitting"
+nfit,i,h,4,,,"Min for fit (>0) or max not found (<=0)"
+rms,r,h,0.51,0.,,"Maximum fit RMS to accept (arcsec)"
+fitgeometry,s,h,"general",shift|xyscale|rotate|rscale|rxyscale|general,,"Fitting geometry"
+reject,r,h,3.,,,"Fitting rejection limit (sigma)"
+update,b,h,yes,,,"Update coordinate systems?"
+interactive,b,h,no,,,"Interactive?"
+fit,b,h,no,,,"Interactive fitting?"
+graphics,s,h,"stdgraph",,,"Graphics device"
+cursor,s,h,"",,,"Graphics cursor
+"
+accept,b,q,yes,,,"Accept solution?"
+mode,s,h,"ql",,,

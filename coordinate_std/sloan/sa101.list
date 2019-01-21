@@ -1,0 +1,15 @@
+# BEGIN CATALOG HEADER
+# nfields 11
+#     id 1 0 c INDEF %15s
+#     ra 2 0 d degrees %10.5f
+#     dec 3 0 d degrees %10.5f
+#     magr  4 0 r INDEF %6.2f
+#     maggr 5 0 r INDEF %6.2f
+#     magug 6 0 r INDEF %6.2f
+#     magri 7 0 r INDEF %6.2f
+#     magiz 8 0 r INDEF %6.2f
+# END CATALOG HEADER
+#
+  SA101315        10.894     0.894     2.490     0.350     0.196    
+  SA101316        11.438     0.309     1.152     0.073     0.007    
+  SA101207        12.290     0.347     1.085     0.101     0.022    

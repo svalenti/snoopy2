@@ -1,0 +1,205 @@
+QUBA - Spectroscopy pre-reductions.
+===================================
+
+PROGRAM NAME: qubprephot_v2.py 
+DATE: 05th May 2009
+
+PURPOSE: Pipeline to do pre-reductions steps for photommetry. Version 4
+works for the following Instrument/Telescope setups.
+
+WHT/AUX
+TNG/Dolores
+NOT/Alfosc
+
+####################################################################################
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   WARNING   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+THIS IS A PIPELINE BUT SHOULD NOT TO BE USED ENTIRELY AS A BLACK BOX. 
+OFTEN TEST IMAGES ARE TAKEN DURING THE NIGHT AND SO YOU SHOULD ALWAYS CHECK THAT THE 
+CALIBRATION FILES THE PIPELINE USES ARE THE APPROPRIATE ONES.
+####################################################################################
+
+
+The following notes assumes you are running the pipeline from QUB ARC
+computers.
+
+#######Getting Started#############
+You should source quba or set an alias in your .tcshrc file
+
+source /home/sne/bin/qubastart_tcsh or export /home/sne/bin/qubastart_bash
+eg setting alias: alias quba source /home/sne/bin/qubastart_tcsh
+
+You need to have only one nights observations in a directory in your scratch or
+home space.eg $USERPATH/data
+
+ie. > cd $USERPATH/data/
+
+Prior to running this program. The following program should be used to separate
+photometric and spectroscopic data.
+
+Create input list for qubareduorganize.py
+
+> ls *.fits > lista
+lista is the input file for qubareduorganize.py. It should contain only raw spectral
+frames.
+
+If quba sourced 
+>qubareduorganize lista
+
+OR if quba not sourced
+
+> /home/sne/QUBA/site-packages/pipeline/bin/qubareduorganize.py @lista
+
+This separates the photometry and spectroscopy related files in to different
+folders. It also checks which files are good or not. If it doesn't recognise a
+file type it will display this in ds9 and ask you what type of file it is. You
+will get the options below:
+BIAS [1] IMAGE [2] SPECTRUM [3] or NOT GOOD [4] ? [0] 4
+
+mostly this occurs for images which are corrypt and best to use option 4.
+
+Do an 'ls' on your $USERPATH/data/ directory.
+>ls $USERPATH/data/
+
+Aside from the raw data files you should now have two directories
+qubaimages and qubaspectra. The reductions for each should be carried out in the
+appropriate directory. Bias frames are copied to both directories. This also
+removes any frames which cannot be opened by iraf eg. null frames.
+
+
+#########Spectral pre-reductions#############
+
+> cd $USERPATH/data/qubaspectra
+
+Create input list for qubccdreduc_v3.py
+
+> ls *.fits > lista
+
+lista is the input file for qubaccdreduc. It should contain only raw spectral
+frames.
+
+If quba sourced 
+>qubaccdreduc @lista
+
+OR if quba not sourced
+
+> /home/sne/QUBA/site-packages/pipeline/bin/qubaccdreduc_v3.py @lista
+
+A log file is open and written to qubaccdreduc.log 
+
+STEP1: Preparing lists
+==========================
+The program first checks all files are creates lists of flats, bias, arcs,
+science frames. In the early stages you should check that these are appropriate
+as they are organised using Keywords and these can be tempermental.
+These should produce files such as
+arclist_[DATE]_[TELESCOPE]
+flatlist_[DATE]_[TELESCOPE]
+biaslist_[DATE]_[TELESCOPE]
+objlist_[DATE]_[TELESCOPE]
+
+STEP2: Preparing lists contd.
+==============================
+The flat and arc frames will then be split in to lists depending on the grism
+and slitwidths you should now have files such as
+flatlist_[grism]
+arclist_[grism]_[slitw]
+
+The bias and flat field files are then split into files depending on time, as
+multiple groups of flats and biases can be taken during the night. Usually at
+the beginning and end. These are numbered 1 to x and you get something like:
+biaslist_[DATE]_[TELESCOPE]_1
+biaslist_[DATE]_[TELESCOPE]_2
+flatlist_[grism]_1
+flatlist_[grism]_2
+
+This accounts for nodichroic and dichroic for the WHT and is recorded in the
+naming of the files.
+
+###STEP3:Creating Masterbias
+=============================
+All bias files are used to create masterbiases. If the stddev is too large a
+file will be omitted. The biases are combined using the median. If there are
+less than 3 biases in the file you will be asked if you want to create a bias.
+This is up to you, generally these are test biases and not worth it. Default
+answer is n.
+
+LESS THAN 3 BIASES DO YOU STILL WANT TO CONTINUE? [y/n]
+
+STEP4: Timming, debiasing, flatfielding
+=========================================
+Once completed the object file will be read and for each object the code checks
+for wether or not there is a bias, arc and flat available in the directory
+with the same set up. You can have different outcomes:
+
+STATUS=0) If there is an appropriate bias,arc and flat are available in the directory it will
+carryout the reductions with theses
+
+STATUS=-1)If there is a bias and flat field in the directory but no arc with the same slit
+it will say that there is an arc but with different slit and will display them
+for you to check if you want to use one. 
+
+Bias, Flat available in this directory !!
+Warning: arc not available with the same slit
+checking if arc available with a different slit......
+['LR-B']
+arclist_LR-R_1.5_arcsec
+arclist_20071216_TNG
+arclist_VHR-V_1.5_arcsec
+Do you want to use an arc from one of these lists [y/n]? [y]             
+
+if you answer n then it will check the archive if no appropriate arc is
+available it will not reduce the object but will create a file with 
+[objname]_[grism]_[slitw]_x.fits. x being the number of the exposures for the
+object.
+
+
+IF STATUS=0 it will select and trim the masterbias and create a masterflat.
+It selects the closest in time masterbias frame to the observation.
+It will tell you the default trim parameters and ask you if you want to change
+them. 
+#### trim        =  [70:2090,50:1200]
+#### overscan    =  [1:2100,2060:2100]
+
+Do you want to select different trim and overscan [y,n] ? [n]
+
+If you enter 'y' it will display the frame and you can use iraf/imexam to check
+out the parameters you want. After using 'q' to exit imexam mode you will be
+asked to input new values. this must be done withe the iraf format shown above.
+
+If you enter 'n' it will trim everything with these values.
+It first trims the masterbias and creates the file 't'+masterbias
+
+Next it will search for the nearest in time file of flats. It will then combine
+these and create a masterflat unless one already exists with the same setup in
+the directory.
+
+If the object has the same setup as the previous object it will just use the
+flat from that setup
+
+After trimming and debiassing the flat it will ask you wether or not you wish to
+normalise the flat. For spectroscopy it is unwise not to.
+
+DO YOU WISH TO NORMALISE THE MASTERFLAT (only say yes for spectra)[y/n] [y]
+
+This brings you into iraf/response interactive mode. To change the order of the
+fit enter ':o xx' where xx is the order number. enter 'f' to fit the polynomial.
+'q' to exit.
+
+It will then trim, debias, and flatfield the object and nearest in time arc to
+the object with the trimmed masterbias and flatfield.
+
+The output is then the [objname]_[grism]_[slitw]_x.fits. x being the number of
+the exposures for the object.
+
+After each object you have the option to exit or not.
+
+Do you want to pre-reduce next object [y/n] ? [y]  
+if 'y' then it will continue to reduce the next object.
+if 'n' it will ask wether or not you wish to exit the program.
+Do you want to terminate the reduction process [y/n] ? [y]
+
+
+If you manage to exit cleanly you should obtain the following message:
+END OF CCD REDUCTION
+
+

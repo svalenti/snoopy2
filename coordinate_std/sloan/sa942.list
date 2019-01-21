@@ -1,0 +1,22 @@
+# BEGIN CATALOG HEADER 
+# catdb sqlcl.query 
+# catname dss1@cadc 
+# nquery 4 
+#     ra 12:12:12.00 hours 
+#     dec 10:10:10.0 degrees 
+#     radius 5.0 minutes 
+#     qsystem J2000.0 INDEF 
+# type btext 
+# nheader 1 
+#     csystem J2000.0 
+# nfields 7 
+#     objid 1 0 c NDEF %11s 
+#     ra 2 0 d degrees %10.5f 
+#     dec 3 0 d degrees %10.5f 
+#     r 4 0 r INDEF %6.3f 
+#     gr 5 0 r INDEF %6.3f 
+#     ug 6 0 r INDEF %6.3f 
+#     ri 7 0 r INDEF %6.3f 
+#     iz 8 0 r INDEF %6.3f 
+  1     44.44574  0.268075  10.803  0.979     2.773     0.373      0.213
+  2     44.33850  0.310552  11.712  0.106     1.157    -0.03300   -0.0460

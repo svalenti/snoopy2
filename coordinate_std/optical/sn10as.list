@@ -1,0 +1,33 @@
+# BEGIN CATALOG HEADER 
+# nfields '+str(nn)+' 
+#     id 1 0 c INDEF %15s 
+#     ra 2 0 d degrees %10.5f 
+#     dec 3 0 d degrees %10.5f 
+#     magV  4 0 r INDEF %6.2f 
+#     magBV 5 0 r INDEF %6.2f 
+#     magUB 6 0 r INDEF %6.2f 
+#     magVR 7 0 r INDEF %6.2f 
+#     magRI 8 0 r INDEF %6.2f 
+# END CATALOG HEADER 
+#
+  1	237.441951   -29.386374     	V	BV	UB	VR	RI	
+  2	237.446655   -29.381268     	V	BV	UB	VR	RI	
+  3	237.446275   -29.377334     	V	BV	UB	VR	RI	
+  4	237.468945   -29.378887     	V	BV	UB	VR	RI	
+  5	237.483976   -29.388068     	V	BV	UB	VR	RI	
+  6	237.485921   -29.384291     	V	BV	UB	VR	RI	
+  7	237.492603   -29.381550     	V	BV	UB	VR	RI	
+  8	237.493267   -29.379316     	V	BV	UB	VR	RI	
+  9	237.478883   -29.372579     	V	BV	UB	VR	RI	
+  10	237.463401   -29.363092     	V	BV	UB	VR	RI	
+  11	237.460984   -29.358450     	V	BV	UB	VR	RI	
+  12	237.452955   -29.355693     	V	BV	UB	VR	RI	
+  13	237.438262   -29.367257     	V	BV	UB	VR	RI	
+  14	237.424421   -29.372023     	V	BV	UB	VR	RI	
+  15	237.421375   -29.371864     	V	BV	UB	VR	RI	
+  16	237.417872   -29.374480     	V	BV	UB	VR	RI	
+  17	237.413751   -29.376006     	V	BV	UB	VR	RI	
+  18	237.409012   -29.375685     	V	BV	UB	VR	RI	
+  19	237.486969   -29.405104     	V	BV	UB	VR	RI	
+  20	237.487246   -29.399005     	V	BV	UB	VR	RI	
+  21	237.486862   -29.394212     	V	BV	UB	VR	RI	

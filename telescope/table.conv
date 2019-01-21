@@ -1,0 +1,84 @@
+#
+# Example of conversion table for hierarch28
+#
+# A note about this file's format:
+# Any blank line or line starting with a hash is ignored.
+# Declare the keyword names to search and replace with:
+#
+# OLDKEYWORD1 = NEWKEYWORD1
+# OLDKEYWORD2 = NEWKEYWORD2
+# etc.
+#
+# Spaces are allowed within keyword names, to allow e.g.:
+#
+# HIERARCH ESO DET DIT  = DETDIT
+# HIERARCH ESO DET NDIT = DET NDIT
+# HIERARCH ESO DET NINT = HIERARCH ESO NINT
+#
+# The most important restriction is that new keywords shall not be
+# longer than the keywords they replace.
+#
+#
+# Translation table for basic keywords used by IRAF
+# -------------------------------------------------
+#
+# Note: hierarch28 will replace keywords in the main header
+# and also in extensions.
+#
+# Disclaimer:
+#   this table has been compiled to best knowledge of present
+#   IRAF packages. Please let us know of any addition/change.
+#
+UTC = UT
+LST = ST
+RA  = RA
+DEC = DEC
+HIERARCH ESO OBS NAME = OBJECT_NAME
+HIERARCH ESO DPR TECH = TECH
+HIERARCH ESO INS MODE = MOD
+HIERARCH ESO DPR CATG = CATG
+HIERARCH ESO INS FILT2 NAME = FILTER2
+HIERARCH ESO INS FILT3 NAME = FILTER3
+HIERARCH ESO INS FILT4 NAME = FILTER4
+HIERARCH ESO INS SLIT2 NAME = SLIT
+HIERARCH ESO INS GRAT NAME  = GRAT
+HIERARCH ESO INS GRAT1 NAME = GRAT1
+HIERARCH ESO INS GRAT2 NAME = GRAT2
+HIERARCH ESO INS GRAT WLEN  = WLEN
+HIERARCH ESO INS GRAT1 WLEN = WLEN1
+HIERARCH ESO INS GRAT2 WLEN = WLEN2
+HIERARCH ESO INS GRAT ORDER = ORDER
+HIERARCH ESO DET OUT1 GAIN   = GAIN
+HIERARCH ESO DET OUT1 RON    = RON
+#
+# A note for IRAF users:
+# hierarch28 performs a translation to the IRAF convention on the
+# following four keywords 'RA', 'DEC', 'UT' and 'ST'. IRAF requires
+# these keywords to contain the string representation of their values.
+#
+# Be aware also that the ESO convention names the keywords UTC and
+# LST, whereas the IRAF convention is 'UT' and 'ST'.
+#
+# e.g.
+#
+# RA      = ' 09:45:14.594'               / RA (J2000) pointing
+# DEC     = '-33:47:09.420'               / DEC (J2000) pointing
+# UT      = ' 01:17:21.950'               / UT at start
+# ST      = ' 08:19:59.688'               / ST at start
+#
+# The ESO standard (see http://archive.eso.org/dicb) defines these
+# keywords as floating point values with the units degrees for RA/DEC
+# and elapsed seconds since midnight for UT/ST.
+#
+# In order to have this tranlation performed, add
+#
+# RA  = RA
+# DEC = DEC
+# UTC = UT
+# LST = ST
+#
+# to the conversion table.
+#
+
+# N. Devillard - March 2000
+#

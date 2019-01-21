@@ -1,0 +1,4 @@
+input,s,a,"PSN1118p13_fts_20130331_red_2.0_56382_1.fits",,,"Input images"
+output,s,a,"testsn",,,"Output images or directory"
+verbose,b,h,yes,,,"Print operations performed?"
+mode,s,h,"ql",,,

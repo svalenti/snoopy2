@@ -1,0 +1,5 @@
+images,s,a,"flatLTT3218_sky_20130214_red_2.0_56351_1.fits",,,"image names"
+imlist,s,h,"*.imh,*.fits,*.pl,*.qp,*.hhh",,,"default image names"
+longheader,b,h,no,,,"print header in multi-line format"
+userfields,b,h,yes,,,"print the user fields (instrument parameters)"
+mode,s,h,"ql",,,

@@ -1,0 +1,4 @@
+images,s,a,"ls",,,"List of images"
+apertures,s,h,"",,,"Apertures to list"
+long_header,b,h,no,,,"List in long format?"
+mode,s,h,"ql",,,

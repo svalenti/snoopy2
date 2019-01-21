@@ -1,0 +1,16 @@
+# BEGIN CATALOG HEADER
+# nfields 11
+#     id 1 0 c INDEF %15s
+#     ra 2 0 d degrees %10.5f
+#     dec 3 0 d degrees %10.5f
+#     magr  4 0 r INDEF %6.2f
+#     maggr 5 0 r INDEF %6.2f
+#     magug 6 0 r INDEF %6.2f
+#     magri 7 0 r INDEF %6.2f
+#     magiz 8 0 r INDEF %6.2f
+# END CATALOG HEADER
+#
+232    280.21808333     0.0318833333     12.287     0.552     1.390     0.237     0.094
+340    280.36853333     0.2563888888     10.010     0.094     1.228    -0.039    -0.053
+499    280.78192916         0.467075     11.399     0.827     2.036     0.473     0.332
+503    280.79873333     0.4952638888     11.625     0.460     1.792     0.222     0.116

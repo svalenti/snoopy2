@@ -1,0 +1,16 @@
+# BEGIN CATALOG HEADER 
+# nfields '+str(nn)+' 
+#     id 1 0 c INDEF %15s 
+#     ra 2 0 d degrees %10.5f 
+#     dec 3 0 d degrees %10.5f 
+#     magV  4 0 r INDEF %6.2f 
+#     magBV 5 0 r INDEF %6.2f 
+#     magUB 6 0 r INDEF %6.2f 
+#     magVR 7 0 r INDEF %6.2f 
+#     magRI 8 0 r INDEF %6.2f 
+# END CATALOG HEADER 
+#
+ 078	254.884460   7.72551586     	15.02	-0.149	-0.940	-0.063	-0.033
+ 078A	254.888430   7.70530459     	14.03	 1.069	 0.730	 0.573	 0.539
+ 078B	254.883488   7.70191759     	14.72	 0.708	 0.065	 0.417	 0.420
+ 078C	254.897230   7.70727930     	15.23	 0.840	 0.385	 0.521	 0.444

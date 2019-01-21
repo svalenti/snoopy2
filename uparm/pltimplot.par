@@ -1,0 +1,7 @@
+image,s,a,"HR3454_fts_20130330_blue_2.0_56382_1.fits",,,"image to be plotted"
+line,i,a,,,,"line to be plotted"
+wcs,s,h,"logical",,,"world coordinate system"
+step,i,h,0,,,"Step in pixels for j/k key"
+coords,*gcur,h,"",,,"graphics cursor input"
+device,s,h,"stdgraph",,,"graphics device for plots"
+mode,s,h,"ql",,,

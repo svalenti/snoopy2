@@ -1,0 +1,17 @@
+# BEGIN CATALOG HEADER 
+# nfields 5 
+#     id 1 0 c INDEF %15s 
+#     ra 2 0 d degrees %10.5f 
+#     dec 3 0 d degrees %10.5f 
+#     magV  4 0 r INDEF %6.2f 
+#     magBV 5 0 r INDEF %6.2f 
+#     magUB 6 0 r INDEF %6.2f 
+#     magVR 7 0 r INDEF %6.2f 
+#     magRI 8 0 r INDEF %6.2f 
+# END CATALOG HEADER 
+#
+  1	4.70482451   -10.346057     	V	BV	UB	VR	RI	
+  2	4.70410900   -10.353712     	V	BV	UB	VR	RI	
+  3	4.71715635   -10.361856     	V	BV	UB	VR	RI	
+  4	4.69781422   -10.363035     	V	BV	UB	VR	RI	
+  5	4.69048110   -10.351454     	V	BV	UB	VR	RI	
