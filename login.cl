@@ -4,7 +4,7 @@
 if (defpar ("logver"))
     logver = "IRAF V2.12.2 January 2004"
 
-set home = "/Users/sv/QUBA/s-p/snoopy2/"
+set home = "/dark/valenti/git/snoopy2/"
 set uparm = "home$uparm/"
 set userid = "snoopy2"
 

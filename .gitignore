@@ -1,1 +1,5 @@
 *.pyc
+*~
+coordinate_std/optical/*fits
+coordinate_std/sloan/*fits
+login.cl
