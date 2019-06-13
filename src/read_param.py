@@ -388,3 +388,30 @@ def correctcard(img):
         imm.close()
 
 
+def deg2HMS(ra='', dec='', round=False):
+      import string
+      RA, DEC= '', ''
+      if dec:
+          if string.count(str(dec),':')==2:
+              dec00=string.split(dec,':')
+              dec0,dec1,dec2=float(dec00[0]),float(dec00[1]),float(dec00[2])
+              if '-' in str(dec0):       DEC=(-1)*((dec2/60.+dec1)/60.+((-1)*dec0))
+              else:                      DEC=(dec2/60.+dec1)/60.+dec0
+          else:
+              if str(dec)[0]=='-':      dec0=(-1)*abs(int(dec))
+              else:                     dec0=abs(int(dec))
+              dec1=int((abs(dec)-abs(dec0))*(60))
+              dec2=((((abs(dec))-abs(dec0))*60)-abs(dec1))*60
+              DEC='00'[len(str(dec0)):]+str(dec0)+':'+'00'[len(str(dec1)):]+str(dec1)+':'+'00'[len(str(int(dec2))):]+str(dec2)
+      if ra:
+          if string.count(str(ra),':')==2:
+              ra00=string.split(ra,':')
+              ra0,ra1,ra2=float(ra00[0]),float(ra00[1]),float(ra00[2])
+              RA=((ra2/60.+ra1)/60.+ra0)*15.
+          else:
+              ra0=int(ra/15.)
+              ra1=int(((ra/15.)-ra0)*(60))
+              ra2=((((ra/15.)-ra0)*60)-ra1)*60
+              RA='00'[len(str(ra0)):]+str(ra0)+':'+'00'[len(str(ra1)):]+str(ra1)+':'+'00'[len(str(int(ra2))):]+str(ra2)
+      if ra and dec:          return RA, DEC
+      else:                   return RA or DEC

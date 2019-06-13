@@ -8,7 +8,11 @@ from math import log10
 from math import sqrt
 from snoopy2 import *
 import snoopy2
-import pyfits
+try:
+        import pyfits
+except:
+        from astropy.io import fits as pyfits
+
 
 help ="################################################################ \n\
 help = Usage:   ph_new.py  filename             \n\

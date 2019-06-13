@@ -81,6 +81,8 @@ def filtername(_telescope,_filter,_system):
       filter_name['sampur']=['JU','JB','JV','JR','JI']
       filter_name['sch']=['U','B','V','R','I']
       filter_name['ctio']=['U','B','V','R','I']
+      filter_name['k61']=['BessellU','HarrisB','HarrisV','HarrisR','HarrisI']
+      filter_name['b155']=['BessellU','HarrisB','HarrisV','HarrisR','HarrisI']
       filter_name['montsec']=['U','B','V','R','I']
       filter_name['dutch']=['U','B','V','R','I']
       filter_name['danish']=['U','B','V','R','I']
@@ -345,7 +347,8 @@ def JD(img,_header,_telescope):
 
     geth = pyfits.getheader(img)
     _system=src.check_system(_telescope,img,Stdout=False)
-    if _system not in [0,1,2]: _system=0
+    if _system not in [0,1,2]:
+        _system=0
     try:
         if _telescope=='wise':
             try:
@@ -354,6 +357,7 @@ def JD(img,_header,_telescope):
                 _JD=float(geth[_header['hed_JulianD2']])
         else:    
             _JD=float(geth[_header['hed_JulianD']])
+            
         if _telescope=='lp': _JD=_JD+0.5
         if _telescope=='FTN': _JD=_JD+0.5
         if _telescope=='FTS': _JD=_JD+0.5
@@ -382,7 +386,7 @@ def JD(img,_header,_telescope):
                 m=int(_date[2:4])
                 g=int(_date[0:2])
             _JD=julday(y,m,g,uh,um)
-            if str(_JD)[0:2]=='24':_JD=_JD-2400000
+            if str(_JD)[0:2]!='24':_JD=_JD+2400000
             updateheader(img,0,_header['hed_JulianD'],_JD)
             #iraf.hedit(img,_header['hed_JulianD'],_JD,add='yes',update='yes',verify='no')
         except:

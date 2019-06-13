@@ -746,7 +746,7 @@ def atmospheric_site2():
    kk={}
    site=raw_input('site: e-so lasilla, p-aranal, a-siago, c-alar alto, s-iding spring, m-auna kea, r-oque, k-ait, t-ctio, ms-montsec, h-ct (India 2.0), st-(India 1.0) or b-ao ? [] ')
    bands='UuBgVrRiIzJHK'
-   kk['telescopse']=['U','u','B','g','V','r','R','i','I','z','J','H','K']
+   kk['telescope']=['U','u','B','g','V','r','R','i','I','z','J','H','K']
    kk['e'] = [0.46, 0.46, 0.27, 0.20, 0.12, 0.09, 0.09, 0.02, 0.02, 0.03, 0.07, 0.023, 0.045]  
    kk['p'] = [0.43, 0.43, 0.22, 0.18, 0.11, 0.07, 0.07, 0.05, 0.05, 0.06, 0.11, 0.06, 0.07]
    kk['r'] = [0.46, 0.46, 0.22, 0.16, 0.12, 0.08, 0.08, 0.04, 0.04, 0.06, 0.12, 0.06, 0.09]

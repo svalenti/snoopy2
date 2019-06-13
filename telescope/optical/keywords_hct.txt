@@ -1,6 +1,6 @@
 hed_RA		=	RA
 hed_DEC		=	DEC
-hed_date	=	DATE-OBS
+hed_date	=	DATE-AVG
 hed_filter1	=	FILTER
 hed_grism	=	GRISM
 hed_object	=	OBJECT
