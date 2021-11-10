@@ -93,15 +93,10 @@ for i in aa:
 
 subdirectory=['optical/','infrared/','sloan/']
 help ="################################################################ \n\
-help = Usage:   svpsf.py filename coordinatelist                           \n\
-                input              filelist iraf format         \n\
-                [-f,--factor]     rejection factor for automatic psf              \n\
-                available list:                                                   \n\
+help =  available list:                                                   \n\
                 "+str(bb)+"                                                       \n\
 ################################################################"
-if len(sys.argv)<=3:
-    print help
-    sys.exit()
+print(help)
 
 
 if __name__ == "__main__":

@@ -10,7 +10,11 @@ import getopt
 import os,sys,shutil,string,re
 import snoopy2
 import glob
-from pyfits import getheader
+try:
+        import pyfits
+except:
+        from astropy.io import fits as pyfits
+
 import math 
 
 ####################  READ OPTION ###########################################
@@ -66,6 +70,7 @@ from pyraf import iraf
 
 iraf.astcat(_doprint=0)
 iraf.imcoords(_doprint=0)
+iraf.rimexam.magzero = 0
 
 if sys.argv[1][0]=='@':   
    ff = open(sys.argv[1][1:])
@@ -322,9 +327,9 @@ for imglong in imglist:
           src.delete('tmp.t_'+target+'.coo')      
           iraf.wcsctran(coordinatelist+'.tv','tmp.t_'+target+'.coo','t_'+target,inwcs='world',units='degrees degrees',outwcs='logical',columns='1 2',formats='%10.1f %10.1f')
           iraf.wcsctran(coordinatelist+'.tv','tmp.temp_'+target+'.coo','temp_'+target,inwcs='world',units='degrees degrees',outwcs='logical',columns='1 2',formats='%10.1f %10.1f')
-          _fwhm_target=float(getheader('t_'+target+'.fits')['QUBAFWHM'])
+          _fwhm_target=float(pyfits.getheader('t_'+target+'.fits')['QUBAFWHM'])
           stars_pos_targ=''
-          _fwhm_template=float(getheader('temp_'+target+'.fits')['QUBAFWHM'])
+          _fwhm_template=float(pyfits.getheader('temp_'+target+'.fits')['QUBAFWHM'])
           stars_pos_templ=''
 
       _z1,_z2,goon=src.display_image('t_'+target,1,'','',False)
@@ -442,7 +447,7 @@ for imglong in imglist:
 	    
 ##############################    prompt correction
               if _telescopev=='prompt':
-                  prompttele=getheader(_file+'.fits')['OBSERVAT']
+                  prompttele=pyfits.getheader(_file+'.fits')['OBSERVAT']
                   if string.count(prompttele,'2'): _prompt='prompt2'
                   elif string.count(prompttele,'3'): _prompt='prompt3'
                   elif string.count(prompttele,'1'): _prompt='prompt1'
@@ -647,7 +652,7 @@ for imglong in imglist:
                   fil.write('%6.6s\t%6.6s\t%6.6s\t%6.6s\t%6.6s\n' % (str(stars[i]),str(fwhm_star[_file+'.fits'][i]),str(magphotstar[_file+'.fits'][i]),str(fitmagstar[_file+'.fits'][i]),str(fitmagstarerr[_file+'.fits'][i])))
               fil.close()
           else:
-              apcov[_file+'.fits']=float(getheader(imgpsf0[jj]+'.fits')['QUBAAPCO'])
+              apcov[_file+'.fits']=float(pyfits.getheader(imgpsf0[jj]+'.fits')['QUBAAPCO'])
               apcofin=apcov[_file+'.fits']
               src.updateheader(_file+".fits",0,'QUBAAPCO',apcofin)
               src.updateheader(imgpsf0[jj]+'.fits',0,'QUBAAPCO',apcofin)
@@ -747,7 +752,7 @@ for imglong in imglist:
               _datamin2=src.ccdmin(template+'.fits',s_header2,_telescope2)
               _datamax2=src.ccdmax(template+'.fits',_header2,_telescope2)
               os.system('cp conv0.fits temp_sc.fits')
-              ff=getheader('temp_'+target+'.fits')
+              ff=pyfits.getheader('temp_'+target+'.fits')
               src.updateheader('temp_sc.fits',0,_header2['hed_exptime'],ff[_header2['hed_exptime']])
               src.updateheader('temp_sc.fits',0,_header2['hed_airmass'],ff[_header2['hed_airmass']])
               src.updateheader('temp_sc.fits',0,'telescop',ff['telescop'])
@@ -769,7 +774,7 @@ for imglong in imglist:
       exptemp = exptimev['temp_'+target+'.fits']
       print imgpsf0[0]
       try:
-          DM=float(getheader('diff_'+target+'.fits')['QUBADM'])
+          DM=float(pyfits.getheader('diff_'+target+'.fits')['QUBADM'])
       except:
           DM=''
       answ='y'
@@ -805,11 +810,11 @@ for imglong in imglist:
       airtarg = airmassv['t_'+target+'.fits']
       airtemp = airmassv['temp_'+target+'.fits']
       try:
-          DM=float(getheader('diff_'+target+'.fits')['QUBADM'])
+          DM=float(pyfits.getheader('diff_'+target+'.fits')['QUBADM'])
       except:
           DM=''
       try:
-          QUBASN1=getheader('t_'+target+'.fits')['QUBASN1']
+          QUBASN1=pyfits.getheader('t_'+target+'.fits')['QUBASN1']
       except:
           QUBASN1=''
       if QUBASN1:
@@ -905,7 +910,7 @@ for imglong in imglist:
                     print "  MARK SN REGION WITH - x -, EXIT  - q -"
           
             if _telescope=='prompt':
-                     prompttele=getheader(target+'.fits')['OBSERVAT']
+                     prompttele=pyfits.getheader(target+'.fits')['OBSERVAT']
                      if string.count(prompttele,'2'): _prompt='prompt2'
                      elif string.count(prompttele,'1'): _prompt='prompt1'
                      elif string.count(prompttele,'3'): _prompt='prompt3'
@@ -1026,8 +1031,8 @@ for imglong in imglist:
             z22=float(_z2)
          
             if not _interactive and xx0:
-                aa=float(getheader('original.fits')['NAXIS1'])/2
-                bb=float(getheader('original.fits')['NAXIS2'])/2
+                aa=float(pyfits.getheader('original.fits')['NAXIS1'])/2
+                bb=float(pyfits.getheader('original.fits')['NAXIS2'])/2
                 _vec=str(aa)+'  '+str(bb)+'  1'
                 vector=[_vec]
                 ff = open('tmplabel','w')
@@ -1071,8 +1076,8 @@ for imglong in imglist:
                 src.delete("sky.*,bg.*,bgs.*,sn.*,residual.*")
                 #iraf.display("original.fits",1,fill='yes',xsize=.5,ysize=.5, zrange='no', zscale='no', z1=z11, z2=z22)
                 _tmp1,_tmp2,goon=src.display_image('original.fits',1, z11, z22, False, _xsize=.5, _ysize=.5)
-                nax=int(getheader('original.fits')['naxis1'])
-                nay=int(getheader('original.fits')['naxis2'])
+                nax=int(pyfits.getheader('original.fits')['naxis1'])
+                nay=int(pyfits.getheader('original.fits')['naxis2'])
          
                 if len(vector)==1:
                     xb,yb,value=string.split(vector[0])
@@ -1371,7 +1376,7 @@ for imglong in imglist:
       airtemp = airmassv['temp_'+target+'.fits']
       print imgpsf0[0]
       try:
-          QUBASN1=getheader('t_'+target+'.fits')['QUBASN1']
+          QUBASN1=pyfits.getheader('t_'+target+'.fits')['QUBASN1']
       except:
           QUBASN1=''
       answ='y'
