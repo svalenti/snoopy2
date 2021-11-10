@@ -4,7 +4,7 @@ def telescope(img):
     import string
     from astropy.io import fits as pyfits
 
-    telescopelist=['ekar','pennar','TNG','NOT','ACAM','WHT','lo','wise','ca','FORS1','FORS2','NTT','lp','wise','rem','CI','sub','mag','FTN','danish','SOFI','NICS','ctio','montsec','hct','trp','k61','b155']
+    telescopelist=['ekar','pennar','TNG','NOT','ACAM','WHT','lo','wise','ca','FORS1','FORS2','NTT','lp','wise','rem','CI','sub','mag','FTN','danish','SOFI','NICS','ctio','montsec','hct','trp','k61','b155','DFOT', 'ST']
     geth = pyfits.getheader(img)
     try:
         _telescope = geth['TELESCOP']
@@ -95,6 +95,10 @@ def telescope(img):
             _telescope='other'
 	elif _telescope in ['1m0-04','1m0-05','1m0-08','1m0-09']:
             _telescope='lsc'
+        elif _telescope in ['DFOT']:
+            _telescope='DFOT'
+        elif _telescope in ['ST']:
+            _telescope='ST'
         elif _telescope in telescopelist:
             pass
         else:

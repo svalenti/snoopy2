@@ -109,6 +109,9 @@ def filtername(_telescope,_filter,_system):
       filter_name['prompt']=['U','B','V','R','I']
       filter_name['Meckering']=['U','B','V','R','I']
       filter_name['swift']=['U','B','V','','']
+      filter_name['DFOT']=['U','B','V','R','I']
+      filter_name['ST']=['U','B','V','R','I']
+      
       if _telescope in filter_name:
         for i in range(len(filter_name[_telescope])):
  	  if filter_name[_telescope][i]==_filter:   

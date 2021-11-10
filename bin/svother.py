@@ -5,7 +5,8 @@ import os,sys,shutil,string,re
 from snoopy2 import *
 import snoopy2
 import glob
-from pyfits import getheader
+from astropy.io import fits as pyfits
+#from pyfits import getheader
 
 help ="################################################################   \n\
 help = Usage:   svother.py filelist                                       \n\
@@ -29,7 +30,7 @@ for opt,arg in options:
 ######################################################################
 
 src.correctcard(img)
-aa=getheader(img)
+aa = pyfits.getheader(img)
 print aa
 
 check=0
@@ -42,7 +43,7 @@ while check==0:
         src.updateheader(img,0,'AIRMASS',1)
         hedairmass='AIRMASS'
     try:
-        _airmass=float(getheader(img)[hedairmass])
+        _airmass=float(pyfits.getheader(img)[hedairmass])
         print 'AIRMASS= '+str(_airmass)
         check=1
     except:
@@ -65,7 +66,7 @@ while check==0:
         src.updateheader(img,0,'EXPTIME',1)
         hedexptime='EXPTIME'
     try:
-        _exptime=float(getheader(img)[hedexptime])
+        _exptime=float(pyfits.getheader(img)[hedexptime])
         check=1
         print 'EXPTIME= '+str(_exptime)
     except:
@@ -89,7 +90,7 @@ while check==0:
         src.updateheader(img,0,'OBJECT',_object)
         hedobject='OBJECT'
     try:
-        _object=str(getheader(img)[hedobject])
+        _object=str(pyfits.getheader(img)[hedobject])
         check=1
         print 'OBJECT= '+str(_object)
     except:
@@ -114,7 +115,7 @@ while check==0:
         src.updateheader(img,0,'DATE-OBS',date)
         heddate='DATE-OBS'
     try:
-        _date=str(getheader(img)[heddate])
+        _date=str(pyfits.getheader(img)[heddate])
         check=1
         print 'DATE= '+str(_date)
     except:
@@ -139,7 +140,7 @@ while check==0:
         src.updateheader(img,0,'INSTRUME',inst)
         hedinst='INSTRUME'
     try:
-        _instrument=str(getheader(img)[hedinst])
+        _instrument=str(pyfits.getheader(img)[hedinst])
         check=1
         print 'INSTRUMENT= '+str(_instrument)
     except:
@@ -164,7 +165,7 @@ while check==0:
         src.updateheader(img,0,'UT',UT)
         hedUT='UT'
     try:
-        _UT=str(getheader(img)[hedUT])
+        _UT=str(pyfits.getheader(img)[hedUT])
         check=1
         print 'UT= '+str(_UT)
     except:
@@ -212,7 +213,7 @@ while check==0:
         #src.updateheader(img,0,'JD',JD2)
     if check==0:
         try:
-            _JD=float(getheader(img)[hedJD])
+            _JD=float(pyfits.getheader(img)[hedJD])
             print 'JD= '+str(_JD)
             check=1
         except:
@@ -239,7 +240,7 @@ while check==0:
         src.updateheader(img,0,'FILTER',_filter)
         hedfilter='FILTER'
     try:
-        _filter=str(getheader(img)[hedfilter])
+        _filter=str(pyfits.getheader(img)[hedfilter])
         print 'FILTER= '+str(_filter)
         check=1
     except:
@@ -261,7 +262,7 @@ while check==0:
 	if not hedron: 
             hedron='RON'
         try:
-            _ron=float(getheader(img)[hedron])
+            _ron=float(pyfits.getheader(img)[hedron])
             check=1
             print 'RON= '+str(_ron)
         except:
@@ -316,7 +317,7 @@ while check==0:
         hedmin = raw_input('Enter the header keyword for the datamin[DATAMIN] ')
 	if not hedmin: hedmin='DATAMIN'
         try:
-            _datamin=float(getheader(img)[hedmin])
+            _datamin=float(pyfits.getheader(img)[hedmin])
             check=1
             print 'DATAMIN= '+str(_datamin)
         except:
@@ -343,7 +344,7 @@ while check==0:
         hedmax = raw_input('Enter the header keyword for datamax [DATAMAX] ')
         if not hedmax: hedmax='DATAMAX'
         try:
-            _datamax=str(getheader(img)[hedmax])
+            _datamax=str(pyfits.getheader(img)[hedmax])
             check=1
             print 'DATAMAX= '+str(_datamax)
         except:
@@ -365,7 +366,7 @@ while check==0:
 filterlist=[]
 for img in imglist:
    if img:
-       _filter=str(getheader(img)[hedfilter])
+       _filter=str(pyfits.getheader(img)[hedfilter])
        if string.count(str(filterlist),_filter)==0:
            filterlist.append(_filter)
        else:
@@ -383,12 +384,12 @@ for i in filterlist:
     filterlist2.append(filter2) 
         
 for img in imglist:
-    _airmass=float(getheader(img)[hedairmass])
-    _exptime=float(getheader(img)[hedexptime])
-    _object=str(getheader(img)[hedobject])
-    _date=str(getheader(img)[heddate])
-    _instrument=str(getheader(img)[hedinst])
-    _UT=str(getheader(img)[hedUT])
+    _airmass=float(pyfits.getheader(img)[hedairmass])
+    _exptime=float(pyfits.getheader(img)[hedexptime])
+    _object=str(pyfits.getheader(img)[hedobject])
+    _date=str(pyfits.getheader(img)[heddate])
+    _instrument=str(pyfits.getheader(img)[hedinst])
+    _UT=str(pyfits.getheader(img)[hedUT])
     src.updateheader(img,0,'TELESCOP','other')
     src.updateheader(img,0,'QUBATELE','other')
     src.updateheader(img,0,'QUBAAIR',_airmass)
@@ -402,7 +403,7 @@ for img in imglist:
     src.updateheader(img,0,'QUBADMAX',_datamax)
     src.updateheader(img,0,'QUBADMIN',_datamin)
     try:
-        _JD=float(getheader(img)[hedJD])
+        _JD=float(pyfits.getheader(img)[hedJD])
         src.updateheader(img,0,'QUBAJD',_JD)
     except:
         print _UT,_date
@@ -448,7 +449,7 @@ for img in imglist:
             print '#####  JD suggested = '+str(_JD)
             src.updateheader(img,0,'QUBAJD',_JD)
             
-    _filter=str(getheader(img)[hedfilter])
+    _filter=str(pyfits.getheader(img)[hedfilter])
     for i in range(len(filterlist)):
         if filterlist[i]==_filter:
             _filter2=filterlist2[i]
