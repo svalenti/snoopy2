@@ -287,26 +287,31 @@ for imglong in imglist:
       stars,tmpfiltercoo=src.register_module(target+'.fits',system,coordinatelist,_interactive,logincl,filter0)
       stars,tmpfiltercoo=src.register_module(template+'.fits',system,coordinatelist,_interactive,logincl,filter2)
 
-      answ='y'
+      answ='n'
       if os.path.isfile('t_'+target+'.fits') and os.path.isfile('temp_'+target+'.fits'):
           _z1,_z2,goon=src.display_image('t_'+target+'.fits',1,'','',False)
           _z1,_z2,goon=src.display_image('temp_'+target+'.fits',2,'','',False)
-          answ=raw_input('images already trimmed, do you want to trimmer again [y/n] [y] ?')
-          if not answ: answ='y'
-      if answ in ['y','Y','yes','','YES','Yes']:
+          if _interactive:
+                  answ = raw_input('images already trimmed, do you want to skip this step [y/n] [y] ?')
+                  if not answ:
+                          answ='y'
+          else:
+                  answ = 'y'
+      if answ in ['n','N','No','','NO']:
               src.delete("diff_"+target+'.fit?')
               src.delete("diff_"+target+'.psf.fit?')
               src.delete("T"+target)
               iraf.sregister(template,target,'T'+target+'.fits',wcs='world')
               _z1,_z2,goon=src.display_image('T'+target+'.fits',1,'','',True)
               src.delete("t_"+target+".fit?,temp_"+target+".fit?,temp_"+target+".co?")
-              while answ in ['Y','Yes','yes','YES','y']:
+              while answ in ['n','N','No','','NO']:
                   print ">>>  mark corners of trim region with  >b<, exit  >q<" 
                   print "     (the first one > b < low on the left, the second up to right) "
                   src.delete('tmptbl')
                   iraf.tvmark(1,"",logfile="tmptbl",autol='yes',mark="cross",interactive='yes')
-                  answ=raw_input(' >>>  repeat trimming ? [n] ')
-                  if not answ: answ='n'
+                  answ=raw_input(' >>>  trim ok ? [y] ')
+                  if not answ:
+                          answ='y'
               x1,x2=iraf.field('tmptbl', '',Stdout=1)
               xb1,yb1=str(int(float(string.split(x1)[0]))),str(int(float(string.split(x1)[1])))
               xb2,yb2=str(int(float(string.split(x2)[0]))),str(int(float(string.split(x2)[1])))
@@ -344,12 +349,13 @@ for imglong in imglist:
       print '### STEP 2 =  PSF '
       print '###'
       if psflista:
-          for _imgpsf in psflista:    print _imgpsf
+          for _imgpsf in psflista:
+                  print(_imgpsf)
           imgpsf0[0]=raw_input('which is the psf file for '+target+' ['+psflista[0]+']?')
           if not imgpsf0[0]: imgpsf0[0]=psflista[0]
 
       if _fwhm_target<= _fwhm_template:
-          print "target has the best PSF \n both PSF are needed " 
+          print("target has the best PSF \n both PSF are needed ")
           m=2
           if not psflista:
               imgpsf0[0]='t_'+target+'.psf'
@@ -370,8 +376,12 @@ for imglong in imglist:
           if os.path.isfile(imgpsf0[jj]+'.fits'):
               print imgpsf0[jj]+'.fits #########################'
               print '##################'
-              answ=raw_input('psf file already in the directory, use it [y/n] ? [y] ')
-              if not answ: answ='y'
+              if _interactive:
+                      answ=raw_input('psf file already in the directory, use it [y/n] ? [y] ')
+                      if not answ:
+                              answ='y'
+              else:
+                      answ='y'
           else:
               answ='n'
               print 'psf file not in the directory'
@@ -663,9 +673,14 @@ for imglong in imglist:
       print '###'
       print '### STEP 3 =  ISIS '
       print '###'
+      answ='n'
       if os.path.isfile('diff_'+target+'.fits'):
-          answ=raw_input('difference image already in the directory, skip this step [y/n] ? [y] ')
-          if not answ: answ='y'
+              if _interactive :
+                      answ=raw_input('difference image already in the directory, skip this step [y/n] ? [y] ')
+                      if not answ:
+                              answ='y'
+              else:
+                      answ = 'y'
       else:
           src.delete("diff_"+target+".fit?")
           answ='n'
@@ -734,8 +749,13 @@ for imglong in imglist:
           print "##Difference image diff_"+target+" on frame 3  #####" 
           _tm1,_tm2,goon=src.display_image("diff_"+target+'.fits',3,'','',False)
 
-          answ=raw_input(">>> are you happy of difference [y/n] ? [y] ")
-          if not answ: answ='y'
+          if _interactive :
+                  answ=raw_input(">>> are you happy of difference [y/n] ? [y] ")
+                  if not answ:
+                          answ='y'
+          else:
+                  answ='y'
+                  
           if answ in ['N','No','NO','n']:
               answ2=raw_input(">>> do you want to calculate with new parameters [y/n] [y] ? ")
               if not answ2: answ2='y'
@@ -793,7 +813,7 @@ for imglong in imglist:
               print '#####'
           else:
     #   DM taked from ISIS parameter sum_kernel (allard communication)
-              DM=2.5*math.log10(sumkern)+2.5*math.log10(exptemp)-2.5*math.log10(exptarg)
+              DM = 2.5*math.log10(sumkern)+2.5*math.log10(exptemp)-2.5*math.log10(exptarg)
               print "********************************************************"
               print '>>>   zero point mag difference = '+str(DM)
               print "********************************************************"
@@ -805,25 +825,31 @@ for imglong in imglist:
       print '###'
       print '### STEP 5 =  SN MEASUREMENT '
       print '###'
+      answ='n'
       exptarg = exptimev['t_'+target+'.fits']
       exptemp = exptimev['temp_'+target+'.fits']
       airtarg = airmassv['t_'+target+'.fits']
       airtemp = airmassv['temp_'+target+'.fits']
       try:
-          DM=float(pyfits.getheader('diff_'+target+'.fits')['QUBADM'])
+          DM = float(pyfits.getheader('diff_'+target+'.fits')['QUBADM'])
       except:
-          DM=''
+          DM = ''
       try:
-          QUBASN1=pyfits.getheader('t_'+target+'.fits')['QUBASN1']
+          QUBASN1 = pyfits.getheader('t_'+target+'.fits')['QUBASN1']
       except:
           QUBASN1=''
       if QUBASN1:
-             print QUBASN1
-             answ=raw_input('magnitude already measured, do you want to measure again [y/n] [y] ? ')
-             if not answ: answ='y'
-      else: answ='y'
-      if answ in ['y','Y','yes','','YES','Yes']:
-            print imgpsf0[0]
+             print(QUBASN1)
+             if _interactive :
+                     answ=raw_input('magnitude already measured, do you want to skip this step [y/n] [y] ? ')
+                     if not answ:
+                             answ='y'
+             else:
+                     answ='y'
+      else:
+              answ='n'
+      if answ in ['n','N','no','','NO','No']:
+            print(imgpsf0[0])
             src.delete('diff_'+target+'.psf.fits')
             os.system('cp '+_imgpsf0+'.fits diff_'+target+'.psf.fits')
             img='diff_'+target
@@ -875,7 +901,7 @@ for imglong in imglist:
                 _z1,_z2,goon=src.display_image(img+'.fits',1,'','',False)
               
             if coordinate:
-                xx0,yy0=src.sn_coordinate('t_'+target+'.fits',_interactive)
+                xx0,yy0 = src.sn_coordinate('t_'+target+'.fits',_interactive)
             else:
                 xx0=''
          
@@ -1275,11 +1301,15 @@ for imglong in imglist:
                             ybgord0=_ybgord0
                     else:  	
                         xbgord0 = raw_input('>>> Order of function in x for bg fit ['+str(_xbgord0)+'] ? ')
-                        if not xbgord0: xbgord0=_xbgord0
-                        else: _xbgord0=xbgord0
+                        if not xbgord0:
+                                xbgord0=_xbgord0
+                        else:
+                                _xbgord0=xbgord0
                         ybgord0 = raw_input('>>> Order of function in x for bg fit ['+str(_ybgord0)+'] ? ')
-                        if not ybgord0: ybgord0=_ybgord0
-                        else: _ybgord0=ybgord0
+                        if not ybgord0:
+                                ybgord0=_ybgord0
+                        else:
+                                _ybgord0=ybgord0
                     try:
                           float(xbgord0)
                           float(ybgord0)
@@ -1309,7 +1339,7 @@ for imglong in imglist:
                 else:
                     if not _numiter:
                         _numiter=_numiter0
-###                 if _count>=_numiter:
+                    if _count>=_numiter:
                         answ0='n'
                     else:
                         answ0='y'

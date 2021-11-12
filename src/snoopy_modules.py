@@ -229,7 +229,6 @@ def fitsn(_recenter,img,imgpsf,fwhm0,apco0,z22,z11,midpt,size,nor,_values,DM):
         print i,apori1[i],apori2[i],apori3[i],apmag1[i],apmag2[i],apmag3[i],fitmag[i],truemag[i],magerr[i]
 
     print "********************************************************************"
-    raw_input('dddd')
     
     iraf.display("original",1,fill='yes',xcen=.25,ycen=.25,xsize=.3,ysize=.3, zscal='no', zrang='no' ,z2=z22, z1=z11) 
 
@@ -329,7 +328,6 @@ def manu(dmag0,apori1,apori2,apori3,apmag1,apmag2,apmag3,fitmag,truemag,magerr,c
    ff.close()
    iraf.tvmark(1,"tmptbl",autol='no',mark="none",inter='no',label='yes',txsize=2)
 
-#   print 'dddd'+str(truemag)
 #   newmag=truemag
 #   for i in range(0,len(truemag)):
 #       try:

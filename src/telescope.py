@@ -95,6 +95,8 @@ def telescope(img):
             _telescope='other'
 	elif _telescope in ['1m0-04','1m0-05','1m0-08','1m0-09']:
             _telescope='lsc'
+        elif _telescope in ['0m4-14','0m4-15','0m4-12','0m4-13']:
+            _telescope='lco0m4'
         elif _telescope in ['DFOT']:
             _telescope='DFOT'
         elif _telescope in ['ST']:

@@ -53,6 +53,10 @@ def filter(img,_header,_telescope):
             _filter=pyfits.open(img)[0].header.get(_header['hed_filter2'])
             if _filter=='air':
                 _filter=pyfits.open(img)[0].header.get(_header['hed_filter3'])
+    if _telescope=='lco0m4' and _filter=='NOTPRESENT':
+        _filter=pyfits.open(img)[0].header.get(_header['hed_filter2'])
+        if _filter=='NOTPRESENT':
+            _filter=pyfits.open(img)[0].header.get(_header['hed_filter3'])
     if _telescope=='PS1':
             _filter=re.sub('.00000', '', _filter)
 
@@ -77,6 +81,7 @@ def filtername(_telescope,_filter,_system):
       filter_name['mer']=['SDSSU','BessellB','BessellV','BessellR','BessellI']
       filter_name['FTS']=['SDSSU','BessellB','BessellV','BessellR','BessellI']
       filter_name['lsc']=['U','B','V','R','I']
+      filter_name['lco0m4']=['U','B','V','R','I']
       filter_name['ekar']=['U','B','V','R','i']
       filter_name['sampur']=['JU','JB','JV','JR','JI']
       filter_name['sch']=['U','B','V','R','I']
